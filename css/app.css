@@ -156,3 +156,9 @@ h1 {
     text-decoration: none;
     cursor: pointer;
 }
+
+.play-again {
+    border : 1px solid black;
+    cursor: pointer;
+    text-align: center;
+}

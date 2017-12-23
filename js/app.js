@@ -72,7 +72,7 @@ var showCards = function(item){
     return handler;
 };
 
-createCards(cards);
+createCards(shuffle(cards));
 
 
 function createCards(array){
@@ -113,7 +113,6 @@ function setListener(){
 function addOpenedCard(card){
     isMatched = false;
     tempCards.push(card);
-    console.log(tempCards);
     if(tempCards.length === 2){
         isMatched = match();
         incrementMoves(isFirstTime);
@@ -122,8 +121,6 @@ function addOpenedCard(card){
 
 
 function match(){
-    console.log(tempCards[0].firstChild.getAttribute("class"));
-    console.log(tempCards[1].firstChild.getAttribute("class"));
     if(tempCards[0].firstChild.getAttribute("class") === tempCards[1].firstChild.getAttribute("class")){
         lockCards(tempCards[0],tempCards[1]);
         return true;
@@ -142,18 +139,15 @@ function lockCards(firstCard,secondCard){
     openedCards.push(firstCard);
     openedCards.push(secondCard);
     tempCards = [];
-    console.log(tempCards);
 }
 
 
 function closeOpenedCards(firstCard,secondCard){
     firstCard.setAttribute("class" , "card");
     secondCard.setAttribute("class" , "card");
-    console.log("first card",firstCard.firstChild.getAttribute("class"));
-    console.log("second card", secondCard.firstChild.getAttribute("class"));
+    firstCard.addEventListener("click" , showCards(firstCard));
+    secondCard.addEventListener("click" , showCards(secondCard));
     tempCards = [];
-    console.log(tempCards);
-    //setListener();
 }
 
 function incrementMoves(isMatched){
@@ -225,6 +219,10 @@ function triggerModal(moves,time){
         modal.style.display = "none";
         resetGame();
     }
+    document.getElementsByClassName("play-again")[0].addEventListener("click" , function(){
+        resetGame();
+        modal.style.display = "none";
+    });
 }
 
 function resetStars(){
